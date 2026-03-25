@@ -1,14 +1,17 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { fetchRestaurantsByPostcode } from './services/restaurantsApi'
 import { mapTopTenRestaurants } from './utils/restaurantMapper'
+import RestaurantList from './components/RestaurantList'
 
 function App() {
+  const [restaurants, setRestaurants] = useState([])
+
   useEffect(() => {
     async function loadRestaurants() {
       try {
-        const restaurants = await fetchRestaurantsByPostcode('N103UG')
-        const mappedRestaurants = mapTopTenRestaurants(restaurants)
-        console.log(mappedRestaurants)
+        const data = await fetchRestaurantsByPostcode('N103UG')
+        const mappedRestaurants = mapTopTenRestaurants(data)
+        setRestaurants(mappedRestaurants)
       } catch (error) {
         console.error(error)
       }
@@ -20,6 +23,7 @@ function App() {
   return (
     <main>
       <h1>Just Eat Restaurant Search</h1>
+      <RestaurantList restaurants={restaurants} />
     </main>
   )
 }
