@@ -1,4 +1,4 @@
-function PostcodeForm({ postcode, onPostcodeChange, onSearch }) {
+function PostcodeForm({ postcode, onPostcodeChange, onSearch, loading }) {
   function handleSubmit(event) {
     event.preventDefault()
     onSearch()
@@ -13,7 +13,9 @@ function PostcodeForm({ postcode, onPostcodeChange, onSearch }) {
         value={postcode}
         onChange={(event) => onPostcodeChange(event.target.value)}
       />
-      <button type="submit">Search</button>
+      <button type="submit" disabled={!postcode.trim() || loading}>
+        {loading ? 'Searching...' : 'Search'}
+      </button>
     </form>
   )
 }
