@@ -2,11 +2,11 @@ import RestaurantCard from './RestaurantCard'
 
 function RestaurantList({ restaurants }) {
   return (
-    <section>
-      {restaurants.map((restaurant) => (
-        <RestaurantCard key={restaurant.id} restaurant={restaurant} />
-      ))}
-    </section>
+    <div className="restaurant-list">
+        {restaurants.map((r) => (
+            <RestaurantCard key={r.id} restaurant={r} />
+        ))}
+    </div>
   )
 }
 
