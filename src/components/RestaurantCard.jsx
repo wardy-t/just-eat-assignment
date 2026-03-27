@@ -1,11 +1,14 @@
 function RestaurantCard({ restaurant }) {
   return (
-    <article>
-      <h2>{restaurant.name}</h2>
-      <p>{restaurant.cuisines}</p>
-      <p>Rating: {restaurant.rating}</p>
-      <p>{restaurant.address}</p>
-    </article>
+    <div className="restaurant-card">
+      <h3>{restaurant.name}</h3>
+
+      <p className="cuisine">{restaurant.cuisines}</p>
+
+      <p className="rating">⭐ {restaurant.rating}</p>
+
+      <p className="address">{restaurant.address}</p>
+    </div>
   )
 }
 
