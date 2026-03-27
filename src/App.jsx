@@ -12,6 +12,18 @@ function App() {
   const [error, setError] = useState(null)
   const [hasSearched, setHasSearched] = useState(false)
   const [showResults, setShowResults] = useState(false)
+  const [tagQuery, setTagQuery] = useState('')
+  const [selectedTag, setSelectedTag] = useState('')
+
+    const activeTag = selectedTag || tagQuery.trim().toLowerCase()
+
+  const filteredRestaurants = restaurants.filter((restaurant) => {
+    if (!activeTag) return true
+
+    return restaurant.tags.some((tag) =>
+      tag.toLowerCase().includes(activeTag)
+    )
+  })
 
   async function handleSearch() {
     const cleanedPostcode = postcode.trim()
@@ -71,7 +83,7 @@ function App() {
         )}
 
         {!error && restaurants.length > 0 && (
-          <RestaurantList restaurants={restaurants} />
+          <RestaurantList restaurants={filteredRestaurants} />
         )}
       </section>
     </main>
