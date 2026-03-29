@@ -15,6 +15,10 @@ function App() {
   const [tagQuery, setTagQuery] = useState('')
   const [selectedTag, setSelectedTag] = useState('')
 
+  function normalizeTag(value) {
+    return value.toLowerCase().trim().replace(/\s+/g, ' ')
+  }
+
   const normalizedTagQuery = tagQuery.trim().toLowerCase()
   const normalizedSelectedTag = selectedTag.trim().toLowerCase()
 
@@ -70,23 +74,30 @@ function App() {
   }
 
   return (
-    <main className="results-page">
-      <header className="results-header">
-        <div className="results-header-inner">
+  <main className="results-page">
+    <header className="results-header">
+      <div className="results-header-inner">
+        <div className="results-topbar">
           <h1 className="results-title">Just Eat Restaurant Search</h1>
+          <p className="results-subtitle">
+            Find local restaurant options by postcode.
+          </p>
+        </div>
 
+        <div className="results-search-panel">
           <PostcodeForm
             postcode={postcode}
             onPostcodeChange={setPostcode}
             onSearch={handleSearch}
             loading={loading}
+            compact={true}
           />
 
           <div className="tag-search">
             <input
               className="tag-search-input"
               type="text"
-              placeholder="Search by cuisine or tag (e.g. pizza, cheeky tuesday)"
+              placeholder="Search by cuisine or tag"
               value={tagQuery}
               onChange={(event) => {
                 setTagQuery(event.target.value)
@@ -101,9 +112,9 @@ function App() {
                 <button
                   key={tag}
                   type="button"
-                  className={selectedTag === tag.toLowerCase() ? 'active' : ''}
+                  className={normalizeTag(selectedTag) === normalizeTag(tag) ? 'active' : ''}
                   onClick={() => {
-                    setSelectedTag(tag.toLowerCase())
+                    setSelectedTag(normalizeTag(tag))
                     setTagQuery('')
                   }}
                 >
@@ -113,24 +124,25 @@ function App() {
             )}
           </div>
         </div>
-      </header>
+      </div>
+    </header>
 
-      <section className="results-content">
-        {error && <p className="status-message">{error}</p>}
+    <section className="results-content">
+      {error && <p className="status-message">{error}</p>}
 
-        {!error && hasSearched && restaurants.length === 0 && (
-          <p className="status-message">No restaurants found</p>
-        )}
+      {!error && hasSearched && restaurants.length === 0 && (
+        <p className="status-message">No restaurants found</p>
+      )}
 
-        {!error && restaurants.length > 0 && filteredRestaurants.length === 0 && (
-          <p className="status-message">No matching restaurants</p>
-        )}
+      {!error && restaurants.length > 0 && filteredRestaurants.length === 0 && (
+        <p className="status-message">No matching restaurants</p>
+      )}
 
-        {!error && filteredRestaurants.length > 0 && (
-          <RestaurantList restaurants={filteredRestaurants} />
-        )}
-      </section>
-    </main>
+      {!error && filteredRestaurants.length > 0 && (
+        <RestaurantList restaurants={filteredRestaurants} />
+      )}
+    </section>
+  </main>
   )
 }
 

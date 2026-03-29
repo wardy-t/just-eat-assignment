@@ -125,6 +125,22 @@ p {
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
+.results-topbar {
+  margin-bottom: 1rem;
+}
+
+.results-subtitle {
+  margin: 0.35rem 0 0;
+  color: white;
+  font-size: 1rem;
+}
+
+.results-search-panel {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 1rem;
+}
+
 /* =========================
    COMPONENTS
 ========================= */
@@ -351,6 +367,22 @@ button:disabled {
   border-color: #ff8000;
 }
 
+.postcode-form--compact .postcode-controls {
+  gap: 0.5rem;
+}
+
+.postcode-form--compact .postcode-input {
+  padding: 0.75rem 0.9rem;
+  font-size: 0.95rem;
+}
+
+.postcode-form--compact .postcode-button {
+  min-width: 110px;
+  padding: 0.75rem 0.9rem;
+  font-size: 0.95rem;
+}
+
+
 /* =========================
    UTILITIES / MEDIA
 ========================= */
@@ -402,5 +434,15 @@ button:disabled {
 
   .tag-buttons button {
     width: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .results-search-panel {
+    padding: 0.75rem;
+  }
+
+  .results-subtitle {
+    font-size: 0.95rem;
   }
 }
