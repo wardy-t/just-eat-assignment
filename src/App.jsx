@@ -14,6 +14,7 @@ function App() {
   const [showResults, setShowResults] = useState(false)
   const [tagQuery, setTagQuery] = useState('')
   const [selectedTag, setSelectedTag] = useState('')
+  const [sortBy, setSortBy] = useState('default')
 
   function normalizeTag(value) {
     return value.toLowerCase().trim().replace(/\s+/g, ' ')
@@ -34,6 +35,18 @@ function App() {
     return restaurant.tags.some((tag) =>
       tag.toLowerCase().includes(normalizedTagQuery)
     )
+  })
+
+  const sortedRestaurants = [...filteredRestaurants].sort((a, b) => {
+  if (sortBy === 'closest') {
+    return (a.distanceMeters ?? Infinity) - (b.distanceMeters ?? Infinity)
+  }
+
+  if (sortBy === 'highest-rated') {
+    return (b.rating ?? 0) - (a.rating ?? 0)
+  }
+
+    return 0
   })
 
   async function handleSearch() {
@@ -131,6 +144,23 @@ function App() {
                 </button>
               )
             )}
+                        
+          <div className="sort-controls">
+            <label className="sort-label" htmlFor="sortBy">
+                Sort by
+              </label>
+
+              <select
+                id="sortBy"
+                className="sort-select"
+                value={sortBy}
+                onChange={(event) => setSortBy(event.target.value)}
+              >
+                <option value="default">Recommended</option>
+                <option value="closest">Closest</option>
+                <option value="highest-rated">Highest rating</option>
+              </select>
+            </div>  
           </div>
         </div>
       </div>
@@ -148,7 +178,7 @@ function App() {
       )}
 
       {!error && filteredRestaurants.length > 0 && (
-        <RestaurantList restaurants={filteredRestaurants} />
+        <RestaurantList restaurants={sortedRestaurants} />
       )}
     </section>
   </main>
