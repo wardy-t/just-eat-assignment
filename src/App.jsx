@@ -14,6 +14,11 @@ function App() {
   const [showResults, setShowResults] = useState(false)
   const [tagQuery, setTagQuery] = useState('')
   const [selectedTag, setSelectedTag] = useState('')
+  const [sortBy, setSortBy] = useState('default')
+
+  function normalizeTag(value) {
+    return value.toLowerCase().trim().replace(/\s+/g, ' ')
+  }
 
   const normalizedTagQuery = tagQuery.trim().toLowerCase()
   const normalizedSelectedTag = selectedTag.trim().toLowerCase()
@@ -30,6 +35,18 @@ function App() {
     return restaurant.tags.some((tag) =>
       tag.toLowerCase().includes(normalizedTagQuery)
     )
+  })
+
+  const sortedRestaurants = [...filteredRestaurants].sort((a, b) => {
+  if (sortBy === 'closest') {
+    return (a.distanceMeters ?? Infinity) - (b.distanceMeters ?? Infinity)
+  }
+
+  if (sortBy === 'highest-rated') {
+    return (b.rating ?? 0) - (a.rating ?? 0)
+  }
+
+    return 0
   })
 
   async function handleSearch() {
@@ -70,23 +87,30 @@ function App() {
   }
 
   return (
-    <main className="results-page">
-      <header className="results-header">
-        <div className="results-header-inner">
+  <main className="results-page">
+    <header className="results-header">
+      <div className="results-header-inner">
+        <div className="results-topbar">
           <h1 className="results-title">Just Eat Restaurant Search</h1>
+          <p className="results-subtitle">
+            Find local restaurant options by postcode.
+          </p>
+        </div>
 
+        <div className="results-search-panel">
           <PostcodeForm
             postcode={postcode}
             onPostcodeChange={setPostcode}
             onSearch={handleSearch}
             loading={loading}
+            compact={true}
           />
 
           <div className="tag-search">
             <input
               className="tag-search-input"
               type="text"
-              placeholder="Search by cuisine or tag (e.g. pizza, cheeky tuesday)"
+              placeholder="Search by deal or cuisine"
               value={tagQuery}
               onChange={(event) => {
                 setTagQuery(event.target.value)
@@ -95,15 +119,24 @@ function App() {
             />
           </div>
 
+          <p className="filter-label">Popular deals and cuisines</p>
+
           <div className="tag-buttons">
-            {['Pizza', 'Chinese', 'Burgers', 'Sushi', 'Cheeky Tuesday'].map(
-              (tag) => (
+            {['Deals',
+              'Cheeky Tuesday',
+              'Collect stamps',
+              'Freebies',
+              'Pizza',
+              'Chinese',
+              'Burgers',
+              'Sushi',
+            ].map((tag) => (
                 <button
                   key={tag}
                   type="button"
-                  className={selectedTag === tag.toLowerCase() ? 'active' : ''}
+                  className={normalizeTag(selectedTag) === normalizeTag(tag) ? 'active' : ''}
                   onClick={() => {
-                    setSelectedTag(tag.toLowerCase())
+                    setSelectedTag(normalizeTag(tag))
                     setTagQuery('')
                   }}
                 >
@@ -113,24 +146,51 @@ function App() {
             )}
           </div>
         </div>
-      </header>
+      </div>
+    </header>
 
-      <section className="results-content">
-        {error && <p className="status-message">{error}</p>}
+    <section className="results-content">
+      <div className="results-layout">
 
-        {!error && hasSearched && restaurants.length === 0 && (
-          <p className="status-message">No restaurants found</p>
-        )}
+        <aside className="filters-sidebar">
+          <div className="filter-group">
+            <label className="sort-label" htmlFor="sortBy">
+              Sort by
+            </label>
 
-        {!error && restaurants.length > 0 && filteredRestaurants.length === 0 && (
-          <p className="status-message">No matching restaurants</p>
-        )}
+            <select
+              id="sortBy"
+              className="sort-select"
+              value={sortBy}
+              onChange={(event) => setSortBy(event.target.value)}
+            >
+              <option value="default">Recommended</option>
+              <option value="closest">Closest</option>
+              <option value="highest-rated">Highest rating</option>
+            </select>
+          </div>
+        </aside>
 
-        {!error && filteredRestaurants.length > 0 && (
-          <RestaurantList restaurants={filteredRestaurants} />
-        )}
-      </section>
-    </main>
+        {/* MAIN CONTENT */}
+        <div className="results-main">
+          {error && <p className="status-message">{error}</p>}
+
+          {!error && hasSearched && restaurants.length === 0 && (
+            <p className="status-message">No restaurants found</p>
+          )}
+
+          {!error && restaurants.length > 0 && filteredRestaurants.length === 0 && (
+            <p className="status-message">No matching restaurants</p>
+          )}
+
+          {!error && filteredRestaurants.length > 0 && (
+            <RestaurantList restaurants={sortedRestaurants} />
+          )}
+        </div>
+
+      </div>
+    </section>
+  </main>
   )
 }
 

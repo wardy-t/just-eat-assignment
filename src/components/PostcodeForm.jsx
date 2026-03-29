@@ -1,14 +1,25 @@
-function PostcodeForm({ postcode, onPostcodeChange, onSearch, loading }) {
+function PostcodeForm({
+  postcode,
+  onPostcodeChange,
+  onSearch,
+  loading,
+  compact = false,
+}) {
   function handleSubmit(event) {
     event.preventDefault()
     onSearch()
   }
 
   return (
-    <form className="postcode-form" onSubmit={handleSubmit}>
-      <label className="postcode-label" htmlFor="postcode">
-        Enter postcode
-      </label>
+    <form
+      className={`postcode-form ${compact ? 'postcode-form--compact' : ''}`}
+      onSubmit={handleSubmit}
+    >
+      {!compact && (
+        <label className="postcode-label" htmlFor="postcode">
+          Enter postcode
+        </label>
+      )}
 
       <div className="postcode-controls">
         <input
@@ -17,6 +28,7 @@ function PostcodeForm({ postcode, onPostcodeChange, onSearch, loading }) {
           type="text"
           value={postcode}
           onChange={(event) => onPostcodeChange(event.target.value)}
+          placeholder="e.g. N10 3UG"
         />
 
         <button
