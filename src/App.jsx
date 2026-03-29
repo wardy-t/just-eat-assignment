@@ -12,6 +12,25 @@ function App() {
   const [error, setError] = useState(null)
   const [hasSearched, setHasSearched] = useState(false)
   const [showResults, setShowResults] = useState(false)
+  const [tagQuery, setTagQuery] = useState('')
+  const [selectedTag, setSelectedTag] = useState('')
+
+  const normalizedTagQuery = tagQuery.trim().toLowerCase()
+  const normalizedSelectedTag = selectedTag.trim().toLowerCase()
+
+  const filteredRestaurants = restaurants.filter((restaurant) => {
+    if (!normalizedTagQuery && !normalizedSelectedTag) return true
+
+    if (normalizedSelectedTag) {
+      return restaurant.tags.some(
+        (tag) => tag.toLowerCase().trim() === normalizedSelectedTag
+      )
+    }
+
+    return restaurant.tags.some((tag) =>
+      tag.toLowerCase().includes(normalizedTagQuery)
+    )
+  })
 
   async function handleSearch() {
     const cleanedPostcode = postcode.trim()
@@ -27,6 +46,8 @@ function App() {
       const mappedRestaurants = mapTopTenRestaurants(data)
       setRestaurants(mappedRestaurants)
       setShowResults(true)
+      setTagQuery('')
+      setSelectedTag('')
     } catch (err) {
       console.error(err)
       setError('Ooops...something went wrong. please try again')
@@ -60,6 +81,37 @@ function App() {
             onSearch={handleSearch}
             loading={loading}
           />
+
+          <div className="tag-search">
+            <input
+              className="tag-search-input"
+              type="text"
+              placeholder="Search by cuisine or tag (e.g. pizza, cheeky tuesday)"
+              value={tagQuery}
+              onChange={(event) => {
+                setTagQuery(event.target.value)
+                setSelectedTag('')
+              }}
+            />
+          </div>
+
+          <div className="tag-buttons">
+            {['Pizza', 'Chinese', 'Burgers', 'Sushi', 'Cheeky Tuesday'].map(
+              (tag) => (
+                <button
+                  key={tag}
+                  type="button"
+                  className={selectedTag === tag.toLowerCase() ? 'active' : ''}
+                  onClick={() => {
+                    setSelectedTag(tag.toLowerCase())
+                    setTagQuery('')
+                  }}
+                >
+                  {tag}
+                </button>
+              )
+            )}
+          </div>
         </div>
       </header>
 
@@ -70,8 +122,12 @@ function App() {
           <p className="status-message">No restaurants found</p>
         )}
 
-        {!error && restaurants.length > 0 && (
-          <RestaurantList restaurants={restaurants} />
+        {!error && restaurants.length > 0 && filteredRestaurants.length === 0 && (
+          <p className="status-message">No matching restaurants</p>
+        )}
+
+        {!error && filteredRestaurants.length > 0 && (
+          <RestaurantList restaurants={filteredRestaurants} />
         )}
       </section>
     </main>

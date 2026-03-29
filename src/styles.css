@@ -250,6 +250,107 @@ button:disabled {
   color: #888;
 }
 
+.postcode-form {
+  width: 100%;
+}
+
+.postcode-label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+  text-align: left;
+}
+
+.postcode-controls {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.postcode-input {
+  flex: 1;
+  width: 100%;
+  padding: 0.9rem 1rem;
+  border: 1px solid #d0d0d0;
+  border-radius: 12px;
+  font-size: 1rem;
+  background: white;
+}
+
+.postcode-input:focus {
+  outline: none;
+  border-color: #ff8000;
+  box-shadow: 0 0 0 3px rgba(255, 128, 0, 0.2);
+}
+
+.postcode-button {
+  min-width: 130px;
+  padding: 0.9rem 1rem;
+  border: none;
+  border-radius: 12px;
+  background: #ff8000;
+  color: white;
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.postcode-button:hover:not(:disabled) {
+  background: #e67300;
+}
+
+.postcode-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.tag-search {
+  margin-top: 1rem;
+}
+
+.tag-search-input {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  font-size: 1rem;
+  background: white;
+}
+
+.tag-search-input:focus {
+  outline: none;
+  border-color: #ff8000;
+  box-shadow: 0 0 0 3px rgba(255, 128, 0, 0.2);
+}
+
+.tag-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.tag-buttons button {
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid #ddd;
+  background: white;
+  color: #1f1f1f;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tag-buttons button:hover {
+  background: #f3f3f3;
+}
+
+.tag-buttons button.active {
+  background: #ff8000;
+  color: white;
+  border-color: #ff8000;
+}
+
 /* =========================
    UTILITIES / MEDIA
 ========================= */
@@ -279,5 +380,27 @@ button:disabled {
 
   .restaurant-card {
     padding: 1rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .postcode-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .postcode-button {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .tag-buttons {
+    gap: 0.4rem;
+  }
+
+  .tag-buttons button {
+    width: auto;
   }
 }
