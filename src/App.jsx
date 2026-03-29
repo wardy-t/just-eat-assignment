@@ -144,42 +144,51 @@ function App() {
                 </button>
               )
             )}
-                        
-          <div className="sort-controls">
-            <label className="sort-label" htmlFor="sortBy">
-                Sort by
-              </label>
-
-              <select
-                id="sortBy"
-                className="sort-select"
-                value={sortBy}
-                onChange={(event) => setSortBy(event.target.value)}
-              >
-                <option value="default">Recommended</option>
-                <option value="closest">Closest</option>
-                <option value="highest-rated">Highest rating</option>
-              </select>
-            </div>  
           </div>
         </div>
       </div>
     </header>
 
     <section className="results-content">
-      {error && <p className="status-message">{error}</p>}
+      <div className="results-layout">
 
-      {!error && hasSearched && restaurants.length === 0 && (
-        <p className="status-message">No restaurants found</p>
-      )}
+        <aside className="filters-sidebar">
+          <div className="filter-group">
+            <label className="sort-label" htmlFor="sortBy">
+              Sort by
+            </label>
 
-      {!error && restaurants.length > 0 && filteredRestaurants.length === 0 && (
-        <p className="status-message">No matching restaurants</p>
-      )}
+            <select
+              id="sortBy"
+              className="sort-select"
+              value={sortBy}
+              onChange={(event) => setSortBy(event.target.value)}
+            >
+              <option value="default">Recommended</option>
+              <option value="closest">Closest</option>
+              <option value="highest-rated">Highest rating</option>
+            </select>
+          </div>
+        </aside>
 
-      {!error && filteredRestaurants.length > 0 && (
-        <RestaurantList restaurants={sortedRestaurants} />
-      )}
+        {/* MAIN CONTENT */}
+        <div className="results-main">
+          {error && <p className="status-message">{error}</p>}
+
+          {!error && hasSearched && restaurants.length === 0 && (
+            <p className="status-message">No restaurants found</p>
+          )}
+
+          {!error && restaurants.length > 0 && filteredRestaurants.length === 0 && (
+            <p className="status-message">No matching restaurants</p>
+          )}
+
+          {!error && filteredRestaurants.length > 0 && (
+            <RestaurantList restaurants={sortedRestaurants} />
+          )}
+        </div>
+
+      </div>
     </section>
   </main>
   )
