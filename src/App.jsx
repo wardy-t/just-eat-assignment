@@ -97,7 +97,7 @@ function App() {
             <input
               className="tag-search-input"
               type="text"
-              placeholder="Search by cuisine or tag"
+              placeholder="Search by deal or cuisine"
               value={tagQuery}
               onChange={(event) => {
                 setTagQuery(event.target.value)
@@ -106,9 +106,18 @@ function App() {
             />
           </div>
 
+          <p className="filter-label">Popular deals and cuisines</p>
+
           <div className="tag-buttons">
-            {['Pizza', 'Chinese', 'Burgers', 'Sushi', 'Cheeky Tuesday'].map(
-              (tag) => (
+            {['Deals',
+              'Cheeky Tuesday',
+              'Collect stamps',
+              'Freebies',
+              'Pizza',
+              'Chinese',
+              'Burgers',
+              'Sushi',
+            ].map((tag) => (
                 <button
                   key={tag}
                   type="button"

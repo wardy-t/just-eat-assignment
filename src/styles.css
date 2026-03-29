@@ -382,6 +382,13 @@ button:disabled {
   font-size: 0.95rem;
 }
 
+.filter-label {
+  margin: 0.9rem 0 0.5rem;
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
 
 /* =========================
    UTILITIES / MEDIA
