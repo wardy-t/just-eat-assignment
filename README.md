@@ -1,6 +1,6 @@
-# Just Eat Web Application
+# Just Eat Assignment
 
-A web application built with  as part of the **Just Eat Takeaway Early Careers - Software Developer** interview process. It allows users to search for restaurants based on UK postcodes and displays four data points pulled from the Just Eat Takeaway API.
+A web application built with Node and React as part of the **Just Eat Takeaway Early Careers - Software Developer** interview process. It allows users to search for restaurants based on UK postcodes and displays four data points pulled from the Just Eat Takeaway API.
 
 ---
 
@@ -21,6 +21,13 @@ A web application built with  as part of the **Just Eat Takeaway Early Careers -
 
 - [React](https://react.dev/) (via [Vite](https://vitejs.dev/))
 - [Leaflet](https://leafletjs.com/) / [React Leaflet](https://react-leaflet.js.org/)
+
+
+---
+
+## Git History
+
+I have left my previous branches and included push summaries in the comments section of my closed push requests for anyone looking for more insight into my build process as well as architectural and design choices.
 
 ---
 
