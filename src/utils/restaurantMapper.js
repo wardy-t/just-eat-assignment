@@ -43,6 +43,7 @@ export function mapRestaurant(restaurant) {
     rating: restaurant.rating?.starRating ?? 'Not available',
     address: addressParts.join(', ') || 'Not available',
     distanceMeters: restaurant.driveDistanceMeters ?? null,
+    coordinates: restaurant.address?.location?.coordinates ?? null,
   }
 }
 

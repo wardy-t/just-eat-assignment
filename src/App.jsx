@@ -15,25 +15,27 @@ function App() {
   const [tagQuery, setTagQuery] = useState('')
   const [selectedTag, setSelectedTag] = useState('')
   const [sortBy, setSortBy] = useState('default')
+  const [searchCoordinates, setSearchCoordinates] = useState(null)
+  const [viewMode, setViewMode] = useState('list')
 
   function normalizeTag(value) {
     return value.toLowerCase().trim().replace(/\s+/g, ' ')
   }
 
-  const normalizedTagQuery = tagQuery.trim().toLowerCase()
-  const normalizedSelectedTag = selectedTag.trim().toLowerCase()
+  const normalizedTagQuery = normalizeTag(tagQuery)
+  const normalizedSelectedTag = normalizeTag(selectedTag)
 
   const filteredRestaurants = restaurants.filter((restaurant) => {
     if (!normalizedTagQuery && !normalizedSelectedTag) return true
 
     if (normalizedSelectedTag) {
       return restaurant.tags.some(
-        (tag) => tag.toLowerCase().trim() === normalizedSelectedTag
+        (tag) => normalizeTag(tag) === normalizedSelectedTag
       )
     }
 
     return restaurant.tags.some((tag) =>
-      tag.toLowerCase().includes(normalizedTagQuery)
+      normalizeTag(tag).includes(normalizedTagQuery)
     )
   })
 
@@ -60,14 +62,17 @@ function App() {
 
     try {
       const data = await fetchRestaurantsByPostcode(cleanedPostcode)
-      const mappedRestaurants = mapTopTenRestaurants(data)
+      const mappedRestaurants = mapTopTenRestaurants(data.restaurants)
+
       setRestaurants(mappedRestaurants)
+      setSearchCoordinates(data.searchCoordinates)
       setShowResults(true)
+      setViewMode('list')
       setTagQuery('')
       setSelectedTag('')
     } catch (err) {
       console.error(err)
-      setError('Ooops...something went wrong. please try again')
+      setError('Oops... something went wrong. Please try again.')
       setRestaurants([])
       setShowResults(true)
     } finally {
@@ -153,6 +158,7 @@ function App() {
       <div className="results-layout">
 
         <aside className="filters-sidebar">
+          
           <div className="filter-group">
             <label className="sort-label" htmlFor="sortBy">
               Sort by
@@ -169,6 +175,29 @@ function App() {
               <option value="highest-rated">Highest rating</option>
             </select>
           </div>
+
+          <div className="view-group">
+            <p className="view-label">View</p>
+
+            <div className="view-toggle">
+              <button
+                type="button"
+                className={viewMode === 'list' ? 'active' : ''}
+                onClick={() => setViewMode('list')}
+              >
+                List
+              </button>
+
+              <button
+                type="button"
+                className={viewMode === 'map' ? 'active' : ''}
+                onClick={() => setViewMode('map')}
+              >
+                Map
+              </button>
+            </div>
+          </div>
+
         </aside>
 
         {/* MAIN CONTENT */}
