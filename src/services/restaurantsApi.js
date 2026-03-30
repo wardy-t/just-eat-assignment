@@ -10,5 +10,9 @@ export async function fetchRestaurantsByPostcode(postcode) {
   }
 
   const data = await response.json()
-  return data.restaurants || []
+
+  return {
+    restaurants: data.restaurants || [],
+    searchCoordinates: data.metaData?.location?.coordinates || null,
+  }
 }

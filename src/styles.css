@@ -2,15 +2,25 @@
    RESET / BASE
 ========================= */
 
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: #ff8000;
+}
+
 * {
   box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f7f7f7;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   color: #1f1f1f;
+  background: #f7f7f7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 img {
@@ -23,12 +33,14 @@ main {
 }
 
 h1,
-h2 {
+h2,
+h3 {
   font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 p {
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 /* =========================
@@ -38,16 +50,6 @@ p {
 .landing-page {
   min-height: 100vh;
   background: #ff8000;
-}
-
-.hero {
-  width: 100%;
-}
-
-.hero-banner {
-  width: 100%;
-  max-height: 240px;
-  object-fit: cover;
 }
 
 .landing-content {
@@ -94,25 +96,53 @@ p {
 
 .results-header {
   background: #ff8000;
-  padding: 1.5rem 1rem;
+  padding: 0.9rem 1rem 1.1rem;
 }
 
 .results-header-inner {
-  width: min(100%, 960px);
+  width: min(100%, 1100px);
   margin: 0 auto;
+}
+
+.results-topbar {
+  margin-bottom: 0.75rem;
 }
 
 .results-title {
-  margin: 0 0 1rem;
+  margin: 0;
   color: white;
-  font-size: 2rem;
+  font-size: 1.75rem;
   line-height: 1.1;
 }
 
+.results-subtitle {
+  margin: 0.3rem 0 0;
+  color: white;
+  font-size: 0.95rem;
+}
+
+.results-search-panel {
+  background: rgba(255, 255, 255, 0.14);
+  border-radius: 16px;
+  padding: 1rem;
+}
+
 .results-content {
-  width: min(100% - 2rem, 960px);
+  width: min(100% - 2rem, 1100px);
   margin: 0 auto;
-  padding: 2rem 0 3rem;
+  padding: 1.5rem 0 2.5rem;
+}
+
+.results-layout {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 1.5rem;
+  align-items: start;
+  margin-top: 1.5rem;
+}
+
+.results-main {
+  min-width: 0;
 }
 
 .status-message {
@@ -122,168 +152,12 @@ p {
   background: white;
   border-radius: 16px;
   padding: 1rem 1.25rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-}
-
-.results-topbar {
-  margin-bottom: 1rem;
-}
-
-.results-subtitle {
-  margin: 0.35rem 0 0;
-  color: white;
-  font-size: 1rem;
-}
-
-.results-search-panel {
-  background: rgba(255, 255, 255, 0.12);
-  border-radius: 16px;
-  padding: 1rem;
-}
-
-.results-layout {
-  display: grid;
-  grid-template-columns: 250px 1fr;
-  gap: 1.5rem;
-  margin-top: 1.5rem;
-}
-
-.filters-sidebar {
-  background: white;
-  border-radius: 16px;
-  padding: 1rem;
-  height: fit-content;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-}
-
-.results-main {
-  min-width: 0;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
 }
 
 /* =========================
    COMPONENTS
 ========================= */
-
-form {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-label {
-  font-weight: 600;
-  text-align: left;
-}
-
-input {
-  width: 100%;
-  padding: 0.85rem 1rem;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  font-size: 1rem;
-}
-
-input:focus {
-  outline: none;
-  border-color: #ff8000;
-  box-shadow: 0 0 0 2px rgba(255, 128, 0, 0.2);
-}
-
-button {
-  padding: 0.85rem 1rem;
-  border: none;
-  border-radius: 12px;
-  background: #ff8000;
-  color: white;
-  font-size: 1rem;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-button:hover:not(:disabled) {
-  background: #e67300;
-  transition: background 0.2s ease;
-}
-
-button:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-}
-
-.restaurant-list {
-  display: grid;
-  gap: 1rem;
-  margin-top: 1rem;
-}
-
-.restaurant-list {
-  max-width: 600px;
-  margin: 40px auto;
-}
-
-.restaurant-card {
-  background: white;
-  border-radius: 16px;
-  padding: 1.25rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.restaurant-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
-}
-
-.restaurant-name {
-  margin: 0 0 0.5rem;
-  font-size: 1.25rem;
-  line-height: 1.2;
-}
-
-.restaurant-cuisines,
-.restaurant-rating,
-.restaurant-address {
-  margin: 0.35rem 0;
-}
-
-.restaurant-cuisines {
-  color: #555;
-}
-
-.restaurant-rating {
-  font-weight: 600;
-}
-
-.restaurant-address {
-  color: #444;
-}
-
-.restaurant-card {
-  background: white;
-  padding: 16px;
-  border-radius: 12px;
-  margin-bottom: 16px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.restaurant-card h3 {
-  margin-bottom: 6px;
-}
-
-.cuisine {
-  color: #666;
-  font-size: 14px;
-}
-
-.rating {
-  font-weight: bold;
-  margin: 6px 0;
-}
-
-.address {
-  font-size: 13px;
-  color: #888;
-}
 
 .postcode-form {
   width: 100%;
@@ -302,25 +176,29 @@ button:disabled {
   align-items: center;
 }
 
-.postcode-input {
-  flex: 1;
+.postcode-input,
+.tag-search-input,
+.sort-select {
   width: 100%;
-  padding: 0.9rem 1rem;
-  border: 1px solid #d0d0d0;
+  padding: 0.85rem 1rem;
+  border: 1px solid #ccc;
   border-radius: 12px;
   font-size: 1rem;
   background: white;
+  font-family: inherit;
 }
 
-.postcode-input:focus {
+.postcode-input:focus,
+.tag-search-input:focus,
+.sort-select:focus {
   outline: none;
   border-color: #ff8000;
   box-shadow: 0 0 0 3px rgba(255, 128, 0, 0.2);
 }
 
-.postcode-button {
-  min-width: 130px;
-  padding: 0.9rem 1rem;
+.postcode-button,
+button {
+  padding: 0.85rem 1rem;
   border: none;
   border-radius: 12px;
   background: #ff8000;
@@ -328,62 +206,23 @@ button:disabled {
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
+  font-family: inherit;
 }
 
-.postcode-button:hover:not(:disabled) {
+.postcode-button:hover:not(:disabled),
+button:hover:not(:disabled) {
   background: #e67300;
+  transition: background 0.2s ease;
 }
 
-.postcode-button:disabled {
+.postcode-button:disabled,
+button:disabled {
   opacity: 0.6;
   cursor: not-allowed;
 }
 
-.tag-search {
-  margin-top: 1rem;
-}
-
-.tag-search-input {
-  width: 100%;
-  padding: 0.85rem 1rem;
-  border: 1px solid #ccc;
-  border-radius: 12px;
-  font-size: 1rem;
-  background: white;
-}
-
-.tag-search-input:focus {
-  outline: none;
-  border-color: #ff8000;
-  box-shadow: 0 0 0 3px rgba(255, 128, 0, 0.2);
-}
-
-.tag-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.5rem;
-  margin-top: 0.75rem;
-}
-
-.tag-buttons button {
-  padding: 0.55rem 0.9rem;
-  border-radius: 999px;
-  border: 1px solid #ddd;
-  background: white;
-  color: #1f1f1f;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-
-.tag-buttons button:hover {
-  background: #f3f3f3;
-}
-
-.tag-buttons button.active {
-  background: #ff8000;
-  color: white;
-  border-color: #ff8000;
+.postcode-button {
+  min-width: 130px;
 }
 
 .postcode-form--compact .postcode-controls {
@@ -401,6 +240,10 @@ button:disabled {
   font-size: 0.95rem;
 }
 
+.tag-search {
+  margin-top: 1rem;
+}
+
 .filter-label {
   margin: 0.9rem 0 0.5rem;
   color: white;
@@ -408,42 +251,194 @@ button:disabled {
   font-weight: 600;
 }
 
-.filter-group {
+.tag-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.tag-buttons button {
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: white;
+  color: #1f1f1f;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.tag-buttons button:hover {
+  background: #f3f3f3;
+}
+
+.tag-buttons button.active {
+  background: #ff8000;
+  color: white;
+  border-color: #ff8000;
+  box-shadow: 0 2px 8px rgba(255, 128, 0, 0.28);
+}
+
+.filters-sidebar {
+  background: white;
+  border-radius: 16px;
+  padding: 1rem;
+  height: fit-content;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.filter-group,
+.view-group {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
-.sort-label {
+.view-group {
+  margin-top: 1rem;
+}
+
+.sort-label,
+.view-label {
   font-size: 0.95rem;
   font-weight: 600;
   color: #333;
 }
 
-.sort-select {
-  width: 100%;
-  padding: 0.75rem 0.9rem;
-  border-radius: 12px;
-  border: 1px solid #ddd;
-  font-size: 0.95rem;
-  background: white;
+.view-toggle {
+  display: flex;
+  gap: 0.5rem;
 }
 
-.sort-select:focus {
-  outline: none;
+.view-toggle button {
+  flex: 1;
+  padding: 0.7rem 0.9rem;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background: white;
+  color: #1f1f1f;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.view-toggle button.active {
+  background: #ff8000;
+  color: white;
   border-color: #ff8000;
-  box-shadow: 0 0 0 3px rgba(255, 128, 0, 0.2);
+}
+
+.restaurant-list {
+  display: grid;
+  gap: 1rem;
+  margin-top: 0;
+}
+
+.restaurant-card {
+  background: white;
+  border-radius: 16px;
+  padding: 1.2rem;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.restaurant-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.restaurant-name {
+  margin: 0 0 0.4rem;
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+
+.restaurant-cuisines {
+  margin: 0 0 0.55rem;
+  color: #666;
+  font-size: 0.95rem;
+}
+
+.restaurant-rating {
+  margin: 0 0 0.45rem;
+  font-weight: 700;
+}
+
+.restaurant-address {
+  margin: 0;
+  color: #777;
+  font-size: 0.92rem;
+}
+
+.restaurant-map-wrapper {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.restaurant-map {
+  width: 100%;
+  height: 560px;
+}
+
+.banner {
+  width: 100%;
+  overflow: hidden;
+  margin-top: 0;
+}
+
+.banner-hero {
+  background: #ff8000;
+}
+
+.banner-hero-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.banner-logo {
+  background: #ff8000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.banner-logo-image {
+  height: 80px;
+  width: auto;
+  display: block;
 }
 
 /* =========================
    UTILITIES / MEDIA
 ========================= */
 
-@media (max-width: 640px) {
-  .hero-banner {
-    max-height: 160px;
+@media (max-width: 768px) {
+  .results-layout {
+    grid-template-columns: 1fr;
   }
 
+  .filters-sidebar {
+    order: -1;
+  }
+
+  .results-content {
+    width: min(100% - 1rem, 1100px);
+    padding-top: 1rem;
+  }
+
+  .restaurant-map {
+    height: 420px;
+  }
+}
+
+@media (max-width: 640px) {
   .landing-card {
     padding: 1rem;
     border-radius: 16px;
@@ -454,20 +449,17 @@ button:disabled {
   }
 
   .results-title {
-    font-size: 1.6rem;
+    font-size: 1.45rem;
   }
 
-  .results-content {
-    width: min(100% - 1rem, 960px);
-    padding-top: 1rem;
+  .results-subtitle {
+    font-size: 0.95rem;
   }
 
-  .restaurant-card {
-    padding: 1rem;
+  .results-search-panel {
+    padding: 0.85rem;
   }
-}
 
-@media (max-width: 640px) {
   .postcode-controls {
     flex-direction: column;
     align-items: stretch;
@@ -477,34 +469,20 @@ button:disabled {
     width: 100%;
     min-width: 0;
   }
-}
 
-@media (max-width: 640px) {
   .tag-buttons {
     gap: 0.4rem;
   }
 
-  .tag-buttons button {
-    width: auto;
-  }
-}
-
-@media (max-width: 640px) {
-  .results-search-panel {
-    padding: 0.75rem;
+  .restaurant-card {
+    padding: 1rem;
   }
 
-  .results-subtitle {
-    font-size: 0.95rem;
-  }
-}
-
-@media (max-width: 768px) {
-  .results-layout {
-    grid-template-columns: 1fr;
+  .banner-logo {
+    padding: 0.5rem 0;
   }
 
-  .filters-sidebar {
-    order: -1;
+  .banner-logo-image {
+    height: 28px;
   }
 }

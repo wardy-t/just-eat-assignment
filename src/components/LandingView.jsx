@@ -1,17 +1,11 @@
-import bannerImage from '../assets/just-eat-banner.jpeg'
+import Banner from './Banner'
 import cardImage from '../assets/just-eat-card.jpeg'
 import PostcodeForm from './PostcodeForm'
 
 function LandingView({ postcode, setPostcode, handleSearch, loading }) {
   return (
     <main className="landing-page">
-      <section className="hero">
-        <img
-          src={bannerImage}
-          alt="Just Eat banner"
-          className="hero-banner"
-        />
-      </section>
+        <Banner variant="hero" />
 
       <section className="landing-content">
         <div className="landing-card">
