@@ -5,6 +5,7 @@ import RestaurantList from './components/RestaurantList'
 import PostcodeForm from './components/PostcodeForm'
 import LandingView from './components/LandingView'
 import RestaurantMap from './components/RestaurantMap'
+import Banner from './components/Banner'
 
 function App() {
   const [postcode, setPostcode] = useState('')
@@ -93,15 +94,17 @@ function App() {
   }
 
   return (
-  <main className="results-page">
-    <header className="results-header">
-      <div className="results-header-inner">
-        <div className="results-topbar">
-          <h1 className="results-title">Just Eat Restaurant Search</h1>
-          <p className="results-subtitle">
-            Find local restaurant options by postcode.
-          </p>
-        </div>
+    <main className="results-page">
+      <Banner variant="logo" />
+
+      <header className="results-header">
+        <div className="results-header-inner">
+          <div className="results-topbar">
+            <h1 className="results-title">LOOKING FOR RESTAURANTS?</h1>
+            <p className="results-subtitle">
+              Find local restaurant options by postcode.
+            </p>
+          </div>
 
         <div className="results-search-panel">
           <PostcodeForm

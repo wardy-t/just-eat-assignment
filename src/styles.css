@@ -2,12 +2,25 @@
    RESET / BASE
 ========================= */
 
+html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  background: #ff8000;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  color: #1f1f1f;
+}
+
 * {
   box-sizing: border-box;
 }
 
 body {
-  margin: 0;
   font-family: Arial, sans-serif;
   background: #f7f7f7;
   color: #1f1f1f;
@@ -449,6 +462,42 @@ button:disabled {
   width: 100%;
   height: 560px;
 }
+
+.banner {
+  width: 100%;
+  overflow: hidden;
+}
+
+.banner-hero {
+  background: #ff8000;
+}
+
+.banner-hero-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.banner-logo {
+  background: #ff8000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0.5rem 0;
+}
+
+.banner-logo-image {
+  height: 84px;
+  width: auto;
+  display: block;
+}
+
+.banner,
+.banner-logo,
+.banner-hero {
+  margin-top: 0;
+}
+
 /* =========================
    UTILITIES / MEDIA
 ========================= */
@@ -523,5 +572,15 @@ button:disabled {
 @media (max-width: 768px) {
   .restaurant-map {
     height: 420px;
+  }
+}
+
+@media (max-width: 640px) {
+  .banner-logo {
+    padding: 0.75rem 0;
+  }
+
+  .banner-logo-image {
+    height: 52px;
   }
 }

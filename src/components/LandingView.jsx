@@ -5,7 +5,7 @@ import PostcodeForm from './PostcodeForm'
 function LandingView({ postcode, setPostcode, handleSearch, loading }) {
   return (
     <main className="landing-page">
-        <Banner />
+        <Banner variant="hero" />
 
       <section className="landing-content">
         <div className="landing-card">
