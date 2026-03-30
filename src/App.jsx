@@ -4,6 +4,7 @@ import { mapTopTenRestaurants } from './utils/restaurantMapper'
 import RestaurantList from './components/RestaurantList'
 import PostcodeForm from './components/PostcodeForm'
 import LandingView from './components/LandingView'
+import RestaurantMap from './components/RestaurantMap'
 
 function App() {
   const [postcode, setPostcode] = useState('')
@@ -213,7 +214,14 @@ function App() {
           )}
 
           {!error && filteredRestaurants.length > 0 && (
-            <RestaurantList restaurants={sortedRestaurants} />
+            viewMode === 'list' ? (
+              <RestaurantList restaurants={sortedRestaurants} />
+            ) : (
+              <RestaurantMap
+                restaurants={sortedRestaurants}
+                searchCoordinates={searchCoordinates}
+              />
+            )
           )}
         </div>
 
