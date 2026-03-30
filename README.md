@@ -69,4 +69,3 @@ npm -v
 
 - **Integrate Docker** - Easier collaboration
 - **Create user models, database, JWT authentication** - Allows storage of user data and preferences
-- 
