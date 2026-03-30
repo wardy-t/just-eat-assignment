@@ -16,9 +16,11 @@ body,
 }
 
 body {
-  font-family: Arial, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   color: #1f1f1f;
   background: #f7f7f7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 img {
@@ -34,10 +36,11 @@ h1,
 h2,
 h3 {
   font-weight: 700;
+  letter-spacing: -0.01em;
 }
 
 p {
-  line-height: 1.4;
+  line-height: 1.5;
 }
 
 /* =========================
@@ -182,6 +185,7 @@ p {
   border-radius: 12px;
   font-size: 1rem;
   background: white;
+  font-family: inherit;
 }
 
 .postcode-input:focus,
@@ -202,6 +206,7 @@ button {
   font-size: 1rem;
   font-weight: 700;
   cursor: pointer;
+  font-family: inherit;
 }
 
 .postcode-button:hover:not(:disabled),
@@ -262,6 +267,7 @@ button:disabled {
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
+  font-family: inherit;
 }
 
 .tag-buttons button:hover {
@@ -316,6 +322,7 @@ button:disabled {
   font-size: 0.95rem;
   font-weight: 600;
   cursor: pointer;
+  font-family: inherit;
 }
 
 .view-toggle button.active {

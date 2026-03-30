@@ -30,15 +30,22 @@ function App() {
   const filteredRestaurants = restaurants.filter((restaurant) => {
     if (!normalizedTagQuery && !normalizedSelectedTag) return true
 
+    const matchesTag = restaurant.tags.some(
+      (tag) => normalizeTag(tag) === normalizedSelectedTag
+    )
+
+    const matchesSearch =
+      restaurant.tags.some((tag) =>
+        normalizeTag(tag).includes(normalizedTagQuery)
+      ) ||
+      normalizeTag(restaurant.name).includes(normalizedTagQuery) ||
+      normalizeTag(restaurant.cuisines || '').includes(normalizedTagQuery)
+
     if (normalizedSelectedTag) {
-      return restaurant.tags.some(
-        (tag) => normalizeTag(tag) === normalizedSelectedTag
-      )
+      return matchesTag
     }
 
-    return restaurant.tags.some((tag) =>
-      normalizeTag(tag).includes(normalizedTagQuery)
-    )
+    return matchesSearch
   })
 
   const sortedRestaurants = [...filteredRestaurants].sort((a, b) => {
@@ -119,7 +126,7 @@ function App() {
             <input
               className="tag-search-input"
               type="text"
-              placeholder="Search by deal or cuisine"
+              placeholder="Search by name, deal or cuisine"
               value={tagQuery}
               onChange={(event) => {
                 setTagQuery(event.target.value)
@@ -139,6 +146,9 @@ function App() {
               'Chinese',
               'Burgers',
               'Sushi',
+              'Breakfast',
+              'Coffee',
+              'Halal',
             ].map((tag) => (
                 <button
                   key={tag}
