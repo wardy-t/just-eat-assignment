@@ -2,10 +2,10 @@ import { useState } from 'react'
 import { fetchRestaurantsByPostcode } from './services/restaurantsApi'
 import { mapTopTenRestaurants } from './utils/restaurantMapper'
 import RestaurantList from './components/RestaurantList'
-import PostcodeForm from './components/PostcodeForm'
 import LandingView from './components/LandingView'
 import RestaurantMap from './components/RestaurantMap'
 import Banner from './components/Banner'
+import ResultsControls from './components/ResultsControls'
 
 function App() {
   const [postcode, setPostcode] = useState('')
@@ -104,69 +104,23 @@ function App() {
     <main className="results-page">
       <Banner variant="logo" />
 
-      <header className="results-header">
-        <div className="results-header-inner">
-          <div className="results-topbar">
-            <h1 className="results-title">LOOKING FOR RESTAURANTS?</h1>
-            <p className="results-subtitle">
-              Find local restaurant options by postcode.
-            </p>
-          </div>
-
-        <div className="results-search-panel">
-          <PostcodeForm
-            postcode={postcode}
-            onPostcodeChange={setPostcode}
-            onSearch={handleSearch}
-            loading={loading}
-            compact={true}
-          />
-
-          <div className="tag-search">
-            <input
-              className="tag-search-input"
-              type="text"
-              placeholder="Search by name, deal or cuisine"
-              value={tagQuery}
-              onChange={(event) => {
-                setTagQuery(event.target.value)
-                setSelectedTag('')
-              }}
-            />
-          </div>
-
-          <p className="filter-label">Popular deals and cuisines</p>
-
-          <div className="tag-buttons">
-            {['Deals',
-              'Cheeky Tuesday',
-              'Collect stamps',
-              'Freebies',
-              'Pizza',
-              'Chinese',
-              'Burgers',
-              'Sushi',
-              'Breakfast',
-              'Coffee',
-              'Halal',
-            ].map((tag) => (
-                <button
-                  key={tag}
-                  type="button"
-                  className={normalizeTag(selectedTag) === normalizeTag(tag) ? 'active' : ''}
-                  onClick={() => {
-                    setSelectedTag(normalizeTag(tag))
-                    setTagQuery('')
-                  }}
-                >
-                  {tag}
-                </button>
-              )
-            )}
-          </div>
-        </div>
-      </div>
-    </header>
+    <ResultsControls
+      postcode={postcode}
+      onPostcodeChange={setPostcode}
+      onSearch={handleSearch}
+      loading={loading}
+      tagQuery={tagQuery}
+      onTagQueryChange={(value) => {
+        setTagQuery(value)
+        setSelectedTag('')
+      }}
+      selectedTag={selectedTag}
+      onTagSelect={(tag) => {
+        setSelectedTag(normalizeTag(tag))
+        setTagQuery('')
+      }}
+      normalizeTag={normalizeTag}
+    />
 
     <section className="results-content">
       <div className="results-layout">
