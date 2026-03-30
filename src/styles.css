@@ -40,16 +40,6 @@ p {
   background: #ff8000;
 }
 
-.hero {
-  width: 100%;
-}
-
-.hero-banner {
-  width: 100%;
-  max-height: 240px;
-  object-fit: cover;
-}
-
 .landing-content {
   display: flex;
   justify-content: center;
@@ -464,9 +454,6 @@ button:disabled {
 ========================= */
 
 @media (max-width: 640px) {
-  .hero-banner {
-    max-height: 160px;
-  }
 
   .landing-card {
     padding: 1rem;
