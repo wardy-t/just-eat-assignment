@@ -1,3 +1,12 @@
+/* =========================
+   POSTCODE FORM
+   =========================
+   Handles user input for postcode search.
+   - Controlled input (value managed in App.jsx)
+   - Submits search via callback
+   - Supports compact and full display variants
+========================= */
+
 function PostcodeForm({
   postcode,
   onPostcodeChange,
@@ -5,6 +14,8 @@ function PostcodeForm({
   loading,
   compact = false,
 }) {
+
+  // Prevent default form submission and trigger search handler
   function handleSubmit(event) {
     event.preventDefault()
     onSearch()
@@ -15,6 +26,7 @@ function PostcodeForm({
       className={`postcode-form ${compact ? 'postcode-form--compact' : ''}`}
       onSubmit={handleSubmit}
     >
+      {/* Label hidden in compact mode (used in results view) */}
       {!compact && (
         <label className="postcode-label" htmlFor="postcode">
           Enter postcode

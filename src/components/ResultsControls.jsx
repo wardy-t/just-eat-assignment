@@ -1,5 +1,12 @@
 import PostcodeForm from './PostcodeForm'
 
+/* =========================
+   CONFIG: QUICK TAGS
+   =========================
+   Predefined filters for common cuisines and deals.
+   Extracted for readability and easy maintenance.
+========================= */
+
 const QUICK_TAGS = [
   'Deals',
   'Cheeky Tuesday',
@@ -13,6 +20,18 @@ const QUICK_TAGS = [
   'Coffee',
   'Halal',
 ]
+
+
+/* =========================
+   RESULTS CONTROLS
+   =========================
+   Handles user input for:
+   - postcode search
+   - free text search
+   - quick tag filtering
+
+   Stateless component — all logic is managed in App.jsx
+========================= */
 
 function ResultsControls({
   postcode,
@@ -28,6 +47,8 @@ function ResultsControls({
   return (
     <header className="results-header">
       <div className="results-header-inner">
+
+        {/* Title / context */}
         <div className="results-topbar">
           <h1 className="results-title">LOOKING FOR RESTAURANTS?</h1>
           <p className="results-subtitle">
@@ -36,6 +57,8 @@ function ResultsControls({
         </div>
 
         <div className="results-search-panel">
+
+          {/* Postcode search */}
           <PostcodeForm
             postcode={postcode}
             onPostcodeChange={onPostcodeChange}
@@ -44,6 +67,7 @@ function ResultsControls({
             compact={true}
           />
 
+          {/* Free text search */}
           <div className="tag-search">
             <input
               className="tag-search-input"
@@ -54,6 +78,7 @@ function ResultsControls({
             />
           </div>
 
+          {/* Quick filter buttons */}
           <p className="filter-label">Popular deals and cuisines</p>
 
           <div className="tag-buttons">
@@ -61,13 +86,18 @@ function ResultsControls({
               <button
                 key={tag}
                 type="button"
-                className={normalizeTag(selectedTag) === normalizeTag(tag) ? 'active' : ''}
+                className={
+                  normalizeTag(selectedTag) === normalizeTag(tag)
+                    ? 'active'
+                    : ''
+                }
                 onClick={() => onTagSelect(tag)}
               >
                 {tag}
               </button>
             ))}
           </div>
+
         </div>
       </div>
     </header>

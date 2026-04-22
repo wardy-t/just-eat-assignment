@@ -1,3 +1,11 @@
+/* =========================
+   RESTAURANT CARD
+   =========================
+   Displays key information for a single restaurant.
+   Purely presentational — receives data via props
+   and renders it without additional logic.
+========================= */
+
 function RestaurantCard({ restaurant }) {
   return (
     <div className="restaurant-card">
